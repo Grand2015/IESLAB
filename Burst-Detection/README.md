@@ -4,3 +4,4 @@ Mainly combined with Zhao Dandan's normal distribution of the cumulative probabi
 The SCADA data of SX city water supply network are analyzed effectively</br>
 Current progress:</br>
 1. The normal distribution probability curve has been completed</br>
+2. add SX SCADA Data</br>
