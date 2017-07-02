@@ -1,16 +1,18 @@
 clc;
 clear;
 %% 获取测压点、水源数据
-username='root';
-table='sx2015';
-jdbcDriver='com.mysql.jdbc.Driver'
-jdbcDir='jdbc:mysql://localhost:3306/sx2015';
-password_hongwei='123\';
-password_zhanghui='1234';
+table             = 'sx2015';
+username          = 'root';
+password_hongwei  = '123\';
+password_zhanghui = '1234';
+jdbcDriver        = 'com.mysql.jdbc.Driver';
+jdbcDir           = 'jdbc:mysql://localhost:3306/sx2015';
+
+%% 
 conn = database(table,username,password_hongwei,jdbcDriver,jdbcDir);
 %conn = database(table,username,password_zhanghui,jdbcDriver,jdbcDir);
 ping(conn);
-%% 
+
 sql1='select val from day4_2 where sid = 59585 ';
 curs = exec(conn, sql1);                       %用exec函数执行sql语句，第二个参数就是sql命令字符串
 curs = fetch(curs);                            %执行完查询后，还要将查询结果从开放cursor对象导入到对象curs中，该功能是用函数cursor.fetch实现的
@@ -19,7 +21,37 @@ Series11 = cell2mat(data1);                  %再把CELL结构转换成MATRIX结构
 
 
 %% test code
+% 下面获取数据的代码可以尝试试一下
+% sql = {
+%         'SELECT val FROM day4_2 WHERE sid = 1', 
+%         'SELECT val FROM day4_2 WHERE sid = 2',
+%         'SELECT val FROM day4_2 WHERE sid = 3',
+%         'SELECT val FROM day4_2 WHERE sid = 4',
+%         'SELECT val FROM day4_2 WHERE sid = 5',
+%         'SELECT val FROM day4_2 WHERE sid = 6',
+%         'SELECT val FROM day4_2 WHERE sid = 7',
+%         'SELECT val FROM day4_2 WHERE sid = 8',
+%         'SELECT val FROM day4_2 WHERE sid = 9',
+%         'SELECT val FROM day4_2 WHERE sid = 10',
+%         'SELECT val FROM day4_2 WHERE sid = 11',
+%         'SELECT val FROM day4_2 WHERE sid = 12',
+%         'SELECT val FROM day4_2 WHERE sid = 13',
+%         'SELECT val FROM day4_2 WHERE sid = 14'
+%       };
+%   
+% for i = 1:14
+%     curs = exec(conn, sql(i));                       %用exec函数执行sql语句，第二个参数就是sql命令字符串
+%     curs = fetch(curs);                            %执行完查询后，还要将查询结果从开放cursor对象导入到对象curs中，该功能是用函数cursor.fetch实现的
+%     data=curs.Data;                               %使用curs.Data来显示数据，curs.Data返回一个CELL结构，可以先把CELL结构转换成MATRIX结构再取值：
+%     Series = cell2mat(data);                  %再把CELL结构转换成MATRIX结构
+%     day4_2(i,:) = Series;
+% end
 
+%save Day4_2 day4_2;
+
+%% 
+
+    
 
 
 
