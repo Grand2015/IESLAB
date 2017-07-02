@@ -1,11 +1,14 @@
 clc;
 clear;
 %% »ñÈ¡²âÑ¹µã¡¢Ë®Ô´Êı¾İ
+username='root';
 table='sx2015';
-jdbc='jdbc:mysql://localhost:3306/sx2015';
+jdbcDriver='com.mysql.jdbc.Driver'
+jdbcDir='jdbc:mysql://localhost:3306/sx2015';
 password_hongwei='123\';
 password_zhanghui='1234';
-conn =database(table,'root',password_hongwei,'com.mysql.jdbc.Driver',jdbc);
+conn = database(table,username,password_hongwei,jdbcDriver,jdbcDir);
+%conn = database(table,username,password_zhanghui,jdbcDriver,jdbcDir);
 ping(conn);
 %% 
 sql1='select val from day4_2 where sid = 59585 ';
@@ -13,6 +16,19 @@ curs = exec(conn, sql1);                       %ÓÃexecº¯ÊıÖ´ĞĞsqlÓï¾ä£¬µÚ¶ş¸ö²ÎÊ
 curs = fetch(curs);                            %Ö´ĞĞÍê²éÑ¯ºó£¬»¹Òª½«²éÑ¯½á¹û´Ó¿ª·Åcursor¶ÔÏóµ¼Èëµ½¶ÔÏócursÖĞ£¬¸Ã¹¦ÄÜÊÇÓÃº¯Êıcursor.fetchÊµÏÖµÄ
 data1=curs.Data;                               %Ê¹ÓÃcurs.DataÀ´ÏÔÊ¾Êı¾İ£¬curs.Data·µ»ØÒ»¸öCELL½á¹¹£¬¿ÉÒÔÏÈ°ÑCELL½á¹¹×ª»»³ÉMATRIX½á¹¹ÔÙÈ¡Öµ£º
 Series11 = cell2mat(data1);                  %ÔÙ°ÑCELL½á¹¹×ª»»³ÉMATRIX½á¹¹
+
+
+%% test code
+
+
+
+
+
+
+
+
+
+
 
 % sql2='select value from points where series_id = 974 ';
 % curs = exec(conn, sql2);                       %ÓÃexecº¯ÊıÖ´ĞĞsqlÓï¾ä£¬µÚ¶ş¸ö²ÎÊı¾ÍÊÇsqlÃüÁî×Ö·û´®
