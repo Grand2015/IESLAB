@@ -2,7 +2,7 @@
 Intelligent water supply system related to the realization of procedures</br>
 
 the file include the following files</br>
-
+Support by Zhanghui
 ## Burst-Detection
 The main contents are burst detection and SX data acquisition, database data statistics</br>
  * getdata.m
