@@ -35,37 +35,56 @@ for i = 1:monitorNum
     % 小波降噪
     observe4_3Wden(:,i) = wden(observe4_3Smooth(:,i),'heursure','s','mln',lev,'sym8');
     %计算14个测点的平均值和标准差
-    observe4_3average(1,i)=mean(observe4_3Wden(:,i));
-    pre4_3T(i,:)=observe4_3Wden(:,i)';
-    observe4_3std(1,i)=std(pre4_3T(i,:),1);
+%     observe4_3average(1,i)=mean(observe4_3Wden(:,i));
+%     pre4_3T(i,:)=observe4_3Wden(:,i)';
+%     observe4_3std(1,i)=std(pre4_3T(i,:),1);
+
 end
+temp1=observe4_3Wden(:,1);
+alpha = 0.05;
+[mu, sigma] = normfit(temp1);
+p1 = normcdf(temp1, mu, sigma);
+% [H1,s1] = kstest(temp1, [temp1, p1], alpha);
+% if H1 == 0
+%     disp('该数据源服从正态分布。')
+% else
+%     disp('该数据源不服从正态分布。')
+% end
+[H,P,LSTAT,CV] = lillietest(temp1,alpha);
+figure(1);
+title('直方图')
+hist(temp1,100);   %作频数直方图 
+figure(2);
+title('分布的正态性检验 ')
+normplot(temp1);  %分布的正态性检验
 
-hist(observe4_3Wden(:,1),100); hold on;
-[b, x]=hist(observe4_3Wden(:,1),100);
-num=numel(observe4_3Wden(:,1));
 
-miu=observe4_3average(1,1);
-sigma=observe4_3std(1,1);
-y1=normpdf(x,miu,sigma);
-y2=normcdf(x,miu,sigma);
+% hist(observe4_3Wden(:,1),100); hold on;
+% [b, x]=hist(observe4_3Wden(:,1),100);
+% num=numel(observe4_3Wden(:,1));
+% 
+% miu=observe4_3average(1,1);
+% sigma=observe4_3std(1,1);
+% y1=normpdf(x,miu,sigma);
+% y2=normcdf(x,miu,sigma);
 
 % [f,xi] = ksdensity(observe4_3Wden(:,1));
 % plot(xi,f);
 
 
-figure(1);
-subplot 211;
-plot(x,b/num);   %概率密度
-title('4月3日第一个测点压力变化正态分布的概率密度')
-c=cumsum(b/num);        %累积分布
-% figure; 
-subplot 212;
-plot(x,c,'+',x,y2,'--');
-title('4月3日第一个测点压力变化正态分布的累积分布');
-figure(2);
-plot(x,c,'+',x,y2,'--');
-title('4月3日第一个测点压力变化正态分布的累积分布');
-xlabel('');ylabel('概率');
+% figure(1);
+% subplot 211;
+% plot(x,b/num);   %概率密度
+% title('4月3日第一个测点压力变化正态分布的概率密度')
+% c=cumsum(b/num);        %累积分布
+% % figure; 
+% subplot 212;
+% plot(x,c,'+',x,y2,'--');
+% title('4月3日第一个测点压力变化正态分布的累积分布');
+% figure(2);
+% plot(x,c,'+',x,y2,'--');
+% title('4月3日第一个测点压力变化正态分布的累积分布');
+% xlabel('');ylabel('概率');
 
 % figure(1)  
 % subplot 211
