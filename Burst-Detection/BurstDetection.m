@@ -18,24 +18,26 @@ for i = 1:monitorNum
     observe4_3Smooth(:,i) = smooth(observe4_3diff(:,i));
     % 小波降噪
     observe4_3Wden(:,i) = wden(observe4_3Smooth(:,i),'heursure','s','mln',lev,'sym8');
-	if flag == 1
-		figure(1);
-		%title('直方图');
-		flag = flag+1;
-	end
+	
+	figure(1);
 	subplot(4,4,i);
 	hist(observe4_3Wden(:,i),100);
-	title(['第',num2str(i),'测点压力差直方图'])；
+	title(['第',num2str(i),'测点压力变化直方图']);
 	
-	if flag ==2
-		figure(2);
-		flag = flag+1;
-	end
+	figure(2);	
 	subplot(4,4,i);
-	normplot(temp1);
-	title(['第',num2str(i),'测点压力差累计概率'])；
+	normplot(observe4_3Wden(:,i));
+	title(['第',num2str(i),'测点压力变化累计概率']);
+    
+    figure(i+2);
+%     subplot(4,4,1);
+% 	hist(observe4_3Wden(:,i),100);
+% 	title(['第',num2str(i),'测点压力变化直方图']);
+%     subplot(4,4,i);
+	normplot(observe4_3Wden(:,i));
+	title(['第',num2str(i),'测点压力变化累计概率']);
+    
 end
-
 
 %% 校验离散数据是否符合正态分布（针对4月2日压力差的校验）
 %方法一：
@@ -60,66 +62,4 @@ end
 %figure(2);
 %title('分布的正态性检验 ')
 %normplot(temp1);  %分布的正态性检验
-
-
-
-%% 杂项
-% hist(observe4_3Wden(:,1),100); hold on;
-% [b, x]=hist(observe4_3Wden(:,1),100);
-% num=numel(observe4_3Wden(:,1));
-% 
-% miu=observe4_3average(1,1);
-% sigma=observe4_3std(1,1);
-% y1=normpdf(x,miu,sigma);
-% y2=normcdf(x,miu,sigma);
-
-% [f,xi] = ksdensity(observe4_3Wden(:,1));
-% plot(xi,f);
-
-
-% figure(1);
-% subplot 211;
-% plot(x,b/num);   %概率密度
-% title('4月3日第一个测点压力变化正态分布的概率密度')
-% c=cumsum(b/num);        %累积分布
-% % figure; 
-% subplot 212;
-% plot(x,c,'+',x,y2,'--');
-% title('4月3日第一个测点压力变化正态分布的累积分布');
-% figure(2);
-% plot(x,c,'+',x,y2,'--');
-% title('4月3日第一个测点压力变化正态分布的累积分布');
-% xlabel('');ylabel('概率');
-
-% figure(1)  
-% subplot 211
-% plot(x,y1)
-% title('4月3日第一个测点压力变化正态分布的概率密度')
-% subplot 212
-% plot(x,y2)
-% title('4月3日第一个测点压力变化正态分布的累积分布')
-
-
-%% 正态分布累计概率
-% clear
-% x=-4:0.01:4;
-% miu=0;sigma=1;
-% y1=normpdf(x,miu,sigma);
-% y2=normcdf(x,miu,sigma);
-% figure(1) 
-% subplot 221
-% plot(x,y1)
-% title('正态分布的概率密度')
-% subplot 222
-% plot(x,y2)
-% title('正态分布的累积分布')
-
- %% point1 数据曲线
-% load('observe4_3.mat');
-% t=1:1:1440;
-% plot(t,observe4_3(:,1));
-
-
-
-
 
