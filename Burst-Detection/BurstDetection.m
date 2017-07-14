@@ -30,30 +30,11 @@ for i = 1:monitorNum
 	title(['第',num2str(i),'测点压力变化累计概率']);
     
     figure(i+2);
-%     subplot(4,4,1);
-% 	hist(observe4_3Wden(:,i),100);
-% 	title(['第',num2str(i),'测点压力变化直方图']);
-%     subplot(4,4,i);
 	normplot(observe4_3Wden(:,i));
 	title(['第',num2str(i),'测点压力变化累计概率']);
     
 end
 
-%% 校验离散数据是否符合正态分布（针对4月2日压力差的校验）
-%方法一：
-%temp1=observe4_3Wden(:,1);
-%alpha = 0.05;
-%[mu, sigma] = normfit(temp1);
-% p1 = normcdf(temp1, mu, sigma);
-% [H1,s1] = kstest(temp1, [temp1, p1], alpha);
-% if H1 == 0
-%     disp('该数据源服从正态分布。')
-% else
-%     disp('该数据源不服从正态分布。')
-% end
-
-%方法二，校验结果参考http://10kn.com/matlab-normality-test/
-%[H,P,LSTAT,CV] = lillietest(temp1,alpha);
 
 %% 直方图和正态累计概率
 %figure(1);
