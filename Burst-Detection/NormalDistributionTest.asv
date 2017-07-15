@@ -25,7 +25,6 @@ monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
 sum = zeros(sampleNum-1,monitorNum);
 preSub  = xlsread(Path,sheetName(6,:),'C3:P1442');
-
 % NaNCount = any(isnan(preSub));
 %检测数据中是否存在缺省值（NaN）
 NaNCount = numel(find(isnan(preSub)));

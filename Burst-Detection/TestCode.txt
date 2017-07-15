@@ -1,0 +1,5 @@
+%% ²âÊÔ´úÂë
+% t=1:1440;
+% observe4_3Smooth(:,1) = smooth(preSub(:,1));
+% observe4_3Wden(:,1) = wden(observe4_3Smooth(:,1),'heursure','s','mln',3,'sym8');
+% plot(t,observe4_3Wden(:,1));
