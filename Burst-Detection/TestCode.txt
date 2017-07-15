@@ -3,3 +3,12 @@
 % observe4_3Smooth(:,1) = smooth(preSub(:,1));
 % observe4_3Wden(:,1) = wden(observe4_3Smooth(:,1),'heursure','s','mln',3,'sym8');
 % plot(t,observe4_3Wden(:,1));
+
+%路径问题
+% hongwei=['hongwei-pc '];
+% [status,hostName] = dos('hostname','-echo');
+% if strcmp(hostName,hongwei)
+%     path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei个人PC路径
+% elseif strcmp(hostName,'hongwei-pc')
+%     path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路径 
+% end

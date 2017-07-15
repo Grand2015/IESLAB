@@ -2,11 +2,8 @@
 clc;
 clear all;
 %% 载入数据
-path = [
-'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\'%实验室hongwei_PC文件路径
-''
-''
-];
+% path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路径
+path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei_PC文件路径
 fileName= 'PressureData.xls';
 sheetName = [
  '2015-03-20'
@@ -19,18 +16,26 @@ sheetName = [
  '2015-04-09'
  '2015-04-10'
 ];
-Path = [path(1,:),fileName];
+Path = [path,fileName];%实验室路径
 
 monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
 sum = zeros(sampleNum-1,monitorNum);
-preSub  = xlsread(Path,sheetName(6,:),'C3:P1442');
+preSub = xlsread(Path,sheetName(7,:),'C3:P1442');
 
 % NaNCount = any(isnan(preSub));
 %检测数据中是否存在缺省值（NaN）
 NaNCount = numel(find(isnan(preSub)));
 if NaNCount > 0
-    [rowNaN,columnNaN] = find(isnan(preSub));
+    for n = 1:monitorNum
+        [rowNaN,columnNaN] = find(isnan(preSub(:,n)));
+        count = numel(columnNaN);
+        t=
+        vi=interp1(t,v,ai,'linear');%线性差值
+
+    end
+    a(:,1)=rowNaN;
+    a(:,2)=columnNaN;
     
 end
 
