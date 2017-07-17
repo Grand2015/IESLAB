@@ -72,35 +72,45 @@ for i = 1:monitorNum
     % 小波降噪
     preWden(:,i) = wden(preSmooth(:,i),'heursure','s','mln',lev,'sym8');
 end
+
 %% 校验离散数据是否符合正态分布
-
-result = zeros(4,monitorNum+1);
-header = ['H' 'p' 'I' 'CV'];
-for m = 1:4
-	result(m,1)=header(i,:);
-end
-
-
+result = zeros(4,monitorNum);
+% header = ['H' 'P' 'I' 'CV'];
+% 
+% for m = 1:4
+% 	result(m,1)=header(i,:);
+% end
+alpha=0.05;
 for i = 1:monitorNum
     % 方法一：
-%     temp1=observe4_3Wden(:,1);
-%     alpha = 0.05;
-%     [mu, sigma] = normfit(temp1);
-%     p1 = normcdf(temp1, mu, sigma);
-%     [H1,s1] = kstest(temp1, [temp1, p1], alpha);
-%     if H1 == 0
-%         disp('该数据源服从正态分布。')
-%     else
-%         disp('该数据源不服从正态分布。')
-%     end
+    temp=zscore(preWden(:,1));
+    [mu, sigma] = normfit(temp);
+    p = normcdf(temp, mu, sigma);
+    [H,s] = kstest(temp, [temp, p], alpha);
+%     result(5,i)=s;
+    if H == 0
+        disp('该数据源服从正态分布。')
+    else
+        disp('该数据源不服从正态分布。')
+    end
 
     % 方法二，校验结果参考http://10kn.com/matlab-normality-test/
-    [H,P,LSTAT,CV] = lillietest(preWden(:,i),alpha);
-    result(1,i+1)=H;
-    result(2,i+1)=P;
-    result(3,i+1)=LSTAT;
-    result(4,i+1)=CV;
-
-    normplot(preWden(:,i));
+    
+%     [H,P,LSTAT,CV] = lillietest(preWden(:,i),alpha);
+    [result(1,i),result(2,i),result(3,i),result(4,i)] = lillietest(preWden(:,i),alpha);
+    
+    figure(1);
+	subplot(4,4,i);
+	hist(preWden(:,i),100);
+	title(['第',num2str(i),'测点压力变化直方图']);
+	
+	figure(2);	
+	subplot(4,4,i);
+	normplot(preWden(:,i));
+	title(['第',num2str(i),'测点压力变化累计概率']);
+    
+    figure(i+2);
+	normplot(preWden(:,i));
+	title(['第',num2str(i),'测点压力变化累计概率']);
 end
 
