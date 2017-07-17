@@ -74,7 +74,14 @@ for i = 1:monitorNum
 end
 %% 校验离散数据是否符合正态分布
 
-for i=1:monitorNum
+result = zeros(4,monitorNum+1);
+header = ['H' 'p' 'I' 'CV'];
+for m = 1:4
+	result(m,1)=header(i,:);
+end
+
+
+for i = 1:monitorNum
     % 方法一：
 %     temp1=observe4_3Wden(:,1);
 %     alpha = 0.05;
@@ -89,6 +96,11 @@ for i=1:monitorNum
 
     % 方法二，校验结果参考http://10kn.com/matlab-normality-test/
     [H,P,LSTAT,CV] = lillietest(preWden(:,i),alpha);
+    result(1,i+1)=H;
+    result(2,i+1)=P;
+    result(3,i+1)=LSTAT;
+    result(4,i+1)=CV;
+
     normplot(preWden(:,i));
 end
 
