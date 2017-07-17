@@ -3,12 +3,11 @@ clear all;
 
 %% 载入4月3日数据数据
 % load('C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\observe4_3.mat');   
-% load('C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\observe4_3.mat');
-load('C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\observe4_3.mat');
+load('C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\observe4_3.mat');
+% load('C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\observe4_3.mat');
 
 %% 原始数据插值处理
 lev  = 3;
-flag = 1;
 monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
 for i = 1:monitorNum
@@ -20,6 +19,8 @@ for i = 1:monitorNum
     % 小波降噪
     observe4_3Wden(:,i) = wden(observe4_3Smooth(:,i),'heursure','s','mln',lev,'sym8');
 	
+    [mu, sigma] = normfit(observe4_3Wden(:,i));
+    
 	figure(1);
 	subplot(4,4,i);
 	hist(observe4_3Wden(:,i),100);

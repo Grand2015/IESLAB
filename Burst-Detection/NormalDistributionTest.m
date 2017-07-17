@@ -2,9 +2,9 @@
 clc;
 clear all;
 %% 载入数据
-% path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路径
+path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路径
 % path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei_PC文件路径
-path = 'C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\';
+% path = 'C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\';%张慧PC路径
 fileName= 'PressureData.xls';
 sheetName = [
  '2015-03-20'
