@@ -3,7 +3,8 @@ clear all;
 
 %% 载入4月3日数据数据
 % load('C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\observe4_3.mat');   
-load('C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\observe4_3.mat')
+% load('C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\observe4_3.mat');
+load('C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\observe4_3.mat');
 
 %% 原始数据插值处理
 lev  = 3;
