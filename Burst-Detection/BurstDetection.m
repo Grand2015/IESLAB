@@ -19,30 +19,81 @@ for i = 1:monitorNum
     % 小波降噪
     observe4_3Wden(:,i) = wden(observe4_3Smooth(:,i),'heursure','s','mln',lev,'sym8');
 	
-    [mu, sigma] = normfit(observe4_3Wden(:,i));
+    %1MPa约等于100m水柱
+    %第1次爆管数据(不同流量)
+    for row = 556:562
+        burst1_l300(row-555,i)=abs(observe4_3diff(row,i)*100);
+    end
+    for row = 563:568
+        burst1_l150(row-562,i)=abs(observe4_3diff(row,i)*100);
+    end
     
-	figure(1);
+    %第2次爆管数据
+    for row = 575:581
+        burst2_l300(row-574,i)=abs(observe4_3diff(row,i)*100);
+    end
+    for row = 582:606
+        burst2_l200(row-581,i)=abs(observe4_3diff(row,i)*100);
+    end
+    
+    %第3次爆管数据
+    for row = 612:618
+        burst3_l300(row-611,i)=abs(observe4_3diff(row,i)*100);
+    end
+    for row = 620:627
+        burst3_l100(row-619,i)=abs(observe4_3diff(row,i)*100);
+    end
+    
+     %第4次爆管数据
+    for row = 633:639
+        burst4_l300(row-632,i)=abs(observe4_3diff(row,i)*100);
+    end
+    for row = 644:648
+        burst4_l100(row-643,i)=abs(observe4_3diff(row,i)*100);
+    end
+    
+    %第5次爆管数据
+    for row = 654:663
+        burst5_l200(row-653,i)=abs(observe4_3diff(row,i)*100);
+    end
+    for row = 665:672
+        burst5_l100(row-664,i)=abs(observe4_3diff(row,i)*100);
+    end
+    
+    t=550:1:680;
+    figure(1);
 	subplot(4,4,i);
-	hist(observe4_3Wden(:,i),100);
+	plot(t,abs(observe4_3Smooth(t,i)*100));
 	title(['第',num2str(i),'测点压力变化直方图']);
-	
-	figure(2);	
-	subplot(4,4,i);
-	normplot(observe4_3Wden(:,i));
-	title(['第',num2str(i),'测点压力变化累计概率']);
-    
-    figure(i+2);
-	normplot(observe4_3Wden(:,i));
-	title(['第',num2str(i),'测点压力变化累计概率']);
-    
 end
 
+burst1avg(1,:)=mean(burst1_l300);
+burst1avg(2,:)=mean(burst1_l150);
+burst1avg(3,:)=mean(burst2_l300);
+burst1avg(4,:)=mean(burst2_l200);
+burst1avg(5,:)=mean(burst3_l300);
+burst1avg(6,:)=mean(burst3_l100);
+burst1avg(7,:)=mean(burst4_l300);
+burst1avg(8,:)=mean(burst4_l100);
+burst1avg(9,:)=mean(burst5_l200);
+burst1avg(10,:)=mean(burst5_l100);
 
-%% 直方图和正态累计概率
-%figure(1);
-%title('直方图')
-%hist(temp1,100);   %作频数直方图 
-%figure(2);
-%title('分布的正态性检验 ')
-%normplot(temp1);  %分布的正态性检验
+
+disp('End')
+%%  临时不用的代码
+% [mu, sigma] = normfit(observe4_3Wden(:,i));
+%     
+% 	figure(1);
+% 	subplot(4,4,i);
+% 	hist(observe4_3Wden(:,i),100);
+% 	title(['第',num2str(i),'测点压力变化直方图']);
+% 	
+% 	figure(2);	
+% 	subplot(4,4,i);
+% 	normplot(observe4_3Wden(:,i));
+% 	title(['第',num2str(i),'测点压力变化累计概率']);
+%     
+%     figure(i+2);
+% 	normplot(observe4_3Wden(:,i));
+% 	title(['第',num2str(i),'测点压力变化累计概率']);
 

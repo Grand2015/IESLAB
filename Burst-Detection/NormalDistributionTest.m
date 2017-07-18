@@ -7,9 +7,6 @@ path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路
 % path = 'C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\';%张慧PC路径
 fileName= 'PressureData.xls';
 sheetName = [
- '2015-03-20'
- '2015-03-21'
- '2015-03-22'
  '2015-04-04'
  '2015-04-05'
  '2015-04-08'
@@ -20,7 +17,7 @@ Path = [path,fileName];%实验室路径
 
 monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
-sum = zeros(sampleNum-1,monitorNum);
+sum = zeros(sampleNum,monitorNum);
 [row,column] = size(sheetName);
 for i = 1:row
     preSub  = xlsread(Path,sheetName(i,:),'C3:P1442');
@@ -50,18 +47,16 @@ for i = 1:row
         fprintf('压力数据中仍然存在: %d 个缺省值', NaNCountCheck);
         pause( );
     end
-    
-    %作差值计算
-%     [rowPre,columnPre] = size(preSub);
-    for j = 1:monitorNum
-        for k = 1:sampleNum-1
-            preDiff(k,j) = preSub(k+1,j)-preSub(k,j);
-        end
-    end
-    sum = sum+preDiff;
-%     NaNCountCheckSum = numel(find(isnan(sum)));
+    sum = sum+preSub;
     if i==row
         average = sum/row;
+    end
+end
+
+%作差值计算
+for j = 1:monitorNum
+    for k = 1:sampleNum-1
+        preDiff(k,j) = average(k+1,j)-average(k,j);
     end
 end
 
@@ -69,7 +64,7 @@ end
 lev  = 3;
 for i = 1:monitorNum
     %平滑降噪
-    preSmooth(:,i) = smooth(average(:,i));
+    preSmooth(:,i) = smooth(preDiff(:,i));
     % 小波降噪
     preWden(:,i) = wden(preSmooth(:,i),'heursure','s','mln',lev,'sym8');
 end
