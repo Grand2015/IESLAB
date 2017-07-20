@@ -15,68 +15,78 @@ for i = 1:monitorNum
     for j = 1:sampleNum-1
         observe4_3diff(j,i) = observe4_3(j+1,i) - observe4_3(j,i);
     end
-    observe4_3Smooth(:,i) = smooth(observe4_3diff(:,i));
+%     observe4_3Smooth(:,i) = smooth(observe4_3diff(:,i));
     % 小波降噪
-    observe4_3Wden(:,i) = wden(observe4_3Smooth(:,i),'heursure','s','mln',lev,'sym8');
+    observe4_3Wden(:,i) = wden(observe4_3diff(:,i),'heursure','s','mln',lev,'sym8');
 	
     %1MPa约等于100m水柱
     %第1次爆管数据(不同流量)
     for row = 556:562
-        burst1_l300(row-555,i)=abs(observe4_3diff(row,i)*100);
+        burst1_l300(row-555,i)=abs(observe4_3Wden(row,i)*100);
     end
     for row = 563:568
-        burst1_l150(row-562,i)=abs(observe4_3diff(row,i)*100);
+        burst1_l150(row-562,i)=abs(observe4_3Wden(row,i)*100);
     end
     
     %第2次爆管数据
     for row = 575:581
-        burst2_l300(row-574,i)=abs(observe4_3diff(row,i)*100);
+        burst2_l300(row-574,i)=abs(observe4_3Wden(row,i)*100);
     end
     for row = 582:606
-        burst2_l200(row-581,i)=abs(observe4_3diff(row,i)*100);
+        burst2_l200(row-581,i)=abs(observe4_3Wden(row,i)*100);
     end
     
     %第3次爆管数据
     for row = 612:618
-        burst3_l300(row-611,i)=abs(observe4_3diff(row,i)*100);
+        burst3_l300(row-611,i)=abs(observe4_3Wden(row,i)*100);
     end
     for row = 620:627
-        burst3_l100(row-619,i)=abs(observe4_3diff(row,i)*100);
+        burst3_l100(row-619,i)=abs(observe4_3Wden(row,i)*100);
     end
     
      %第4次爆管数据
     for row = 633:639
-        burst4_l300(row-632,i)=abs(observe4_3diff(row,i)*100);
+        burst4_l300(row-632,i)=abs(observe4_3Wden(row,i)*100);
     end
     for row = 644:648
-        burst4_l100(row-643,i)=abs(observe4_3diff(row,i)*100);
+        burst4_l100(row-643,i)=abs(observe4_3Wden(row,i)*100);
     end
     
     %第5次爆管数据
     for row = 654:663
-        burst5_l200(row-653,i)=abs(observe4_3diff(row,i)*100);
+        burst5_l200(row-653,i)=abs(observe4_3Wden(row,i)*100);
     end
     for row = 665:672
-        burst5_l100(row-664,i)=abs(observe4_3diff(row,i)*100);
+        burst5_l100(row-664,i)=abs(observe4_3Wden(row,i)*100);
     end
     
-    t=550:1:680;
+    t=550:1:700;
     figure(1);
 	subplot(4,4,i);
-	plot(t,abs(observe4_3Smooth(t,i)*100));
-	title(['第',num2str(i),'测点压力变化直方图']);
+	plot(t,abs(observe4_3diff(t,i)*100));
+	title(['第',num2str(i),'测点压力变化']);
 end
 
-burst1avg(1,:)=mean(burst1_l300);
-burst1avg(2,:)=mean(burst1_l150);
-burst1avg(3,:)=mean(burst2_l300);
-burst1avg(4,:)=mean(burst2_l200);
-burst1avg(5,:)=mean(burst3_l300);
-burst1avg(6,:)=mean(burst3_l100);
-burst1avg(7,:)=mean(burst4_l300);
-burst1avg(8,:)=mean(burst4_l100);
-burst1avg(9,:)=mean(burst5_l200);
-burst1avg(10,:)=mean(burst5_l100);
+burst1avg(1,:)=max(burst1_l300);
+burst1avg(2,:)=max(burst1_l150);
+burst1avg(3,:)=max(burst2_l300);
+burst1avg(4,:)=max(burst2_l200);
+burst1avg(5,:)=max(burst3_l300);
+burst1avg(6,:)=max(burst3_l100);
+burst1avg(7,:)=max(burst4_l300);
+burst1avg(8,:)=max(burst4_l100);
+burst1avg(9,:)=max(burst5_l200);
+burst1avg(10,:)=max(burst5_l100);
+% burst1avg(1,:)=mean(burst1_l300);
+% burst1avg(2,:)=mean(burst1_l150);
+% burst1avg(3,:)=mean(burst2_l300);
+% burst1avg(4,:)=mean(burst2_l200);
+% burst1avg(5,:)=mean(burst3_l300);
+% burst1avg(6,:)=mean(burst3_l100);
+% burst1avg(7,:)=mean(burst4_l300);
+% burst1avg(8,:)=mean(burst4_l100);
+% burst1avg(9,:)=mean(burst5_l200);
+% burst1avg(10,:)=mean(burst5_l100);
 
 
 disp('End')
