@@ -2,7 +2,7 @@
 clc;
 clear all;
 %% 载入数据
-path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路径
+path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实 验室hongwei_PC文件路径
 % path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei_PC文件路径
 % path = 'C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\';%张慧PC路径
 fileName= 'PressureData.xls';
@@ -79,7 +79,7 @@ result = zeros(4,monitorNum);
 alpha=0.05;
 for i = 1:monitorNum
     % 方法一：
-    temp=zscore(preWden(:,1));
+    temp=zscore(preSmooth(:,1));
     [mu, sigma] = normfit(temp);
     p = normcdf(temp, mu, sigma);
     [H,s] = kstest(temp, [temp, p], alpha);
@@ -93,20 +93,20 @@ for i = 1:monitorNum
     % 方法二，校验结果参考http://10kn.com/matlab-normality-test/
     
 %     [H,P,LSTAT,CV] = lillietest(preWden(:,i),alpha);
-    [result(1,i),result(2,i),result(3,i),result(4,i)] = lillietest(preWden(:,i),alpha);
+    [result(1,i),result(2,i),result(3,i),result(4,i)] = lillietest(preSmooth(:,i),alpha);
     
     figure(1);
 	subplot(4,4,i);
-	hist(preWden(:,i),100);
+	hist(preSmooth(:,i),100);
 	title(['第',num2str(i),'测点压力变化直方图']);
 	
 	figure(2);	
 	subplot(4,4,i);
-	normplot(preWden(:,i));
+	normplot(preSmooth(:,i));
 	title(['第',num2str(i),'测点压力变化累计概率']);
     
     figure(i+2);
-	normplot(preWden(:,i));
+	normplot(preSmooth(:,i));
 	title(['第',num2str(i),'测点压力变化累计概率']);
 end
 
