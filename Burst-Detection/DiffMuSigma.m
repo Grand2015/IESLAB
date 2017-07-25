@@ -47,19 +47,19 @@ for i = 1:row
         fprintf('压力数据中仍然存在: %d 个缺省值', NaNCountCheck);
         pause( );
     end
-    sum = sum+preSub;
+    %作差值计算
+    for j = 1:monitorNum
+        for k = 1:sampleNum-1
+            bigDiffMatrix(k,monitorNum*(i-1)+j)  = preSub(k+1,j)-preSub(k,j);
+        end
+    end
+end
+
+
+ sum = sum+preSub;
     if i==row
         average = sum/row;
     end
-end
-
-%作差值计算
-for j = 1:monitorNum
-    for k = 1:sampleNum-1
-        preDiff(k,j) = average(k+1,j)-average(k,j);
-    end
-end
-
 %% 小波降噪，平滑处理
 lev  = 3;
 for i = 1:monitorNum
