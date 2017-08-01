@@ -2,8 +2,8 @@
 clc;
 clear all;
 %% 载入数据
-% path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实 验室hongwei_PC文件路径
-path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei_PC文件路径
+path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实 验室hongwei_PC文件路径
+% path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei_PC文件路径
 % path = 'C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\';%张慧PC路径
 fileName= 'PressureData.xls';
 sheetName = [
@@ -17,8 +17,8 @@ Path = [path,fileName];%实验室路径
 
 monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
-sum = zeros(sampleNum,monitorNum);
 [row,column] = size(sheetName);
+
 for i = 1:row
     preSub  = xlsread(Path,sheetName(i,:),'C3:P1442');
 %     preSub = xlsread(Path,sheetName(4,:),'C3:P1442');
@@ -52,13 +52,18 @@ for i = 1:row
         for k = 1:sampleNum-1
             bigDiffMatrix(k,monitorNum*(i-1)+j)  = preSub(k+1,j)-preSub(k,j);
         end
-    end
+    end       
+end
+
+[rowB,columnB] = size(bigDiffMatrix);
+for r = 1:columnB
+     preSmooth(:,r) = smooth(bigDiffMatrix(:,r));
 end
 
 %计算历史数据的平均值和标准差
 for i = 1:monitorNum
     for j = 1:sampleNum-1
-        temp = [bigDiffMatrix(j,i) bigDiffMatrix(j,i+monitorNum) bigDiffMatrix(j,i+2*monitorNum) bigDiffMatrix(j,i+3*monitorNum) bigDiffMatrix(j,i+4*monitorNum)];
+        temp = [preSmooth(j,i) preSmooth(j,i+monitorNum) preSmooth(j,i+2*monitorNum) preSmooth(j,i+3*monitorNum) preSmooth(j,i+4*monitorNum)];
         average(j,i) = mean(temp);
         standardDeviation(j,i) = std(temp);
     end
@@ -66,13 +71,14 @@ end
 
 save average average;
 save standardDeviation standardDeviation;
+disp('End')
 %% 小波降噪，平滑处理(需不需要呢？)
-lev  = 3;
-for i = 1:monitorNum
-    %平滑降噪
-    preSmooth(:,i) = smooth(preDiff(:,i));
-    % 小波降噪
-    preWden(:,i) = wden(preSmooth(:,i),'heursure','s','mln',lev,'sym8');
-end
+% lev  = 3;
+% for i = 1:monitorNum
+%     %平滑降噪
+%     preSmooth(:,i) = smooth(preDiff(:,i));
+%     % 小波降噪
+%     preWden(:,i) = wden(preSmooth(:,i),'heursure','s','mln',lev,'sym8');
+% end
 
 
