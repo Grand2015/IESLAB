@@ -1,4 +1,5 @@
 %利用平均值加减4.3.2.1倍Delta与4月3日数据进行对比
+%认为比较
 
 clc;
 clear all;
@@ -10,7 +11,7 @@ load('C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\observe4_3.mat');
 % load('C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\observe4_3.mat');
 
 %载入测点平均值和标准差
-load('average.mat');
+load('average.mat');%14个测点的压力差值的平均值
 load('standardDeviation.mat');
 %% 原始数据差值处理
 lev  = 3;
@@ -18,7 +19,7 @@ monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
 multiple = 4;%Delta的倍数
 for i = 1:monitorNum
-    for j = 1:sampleNum-1
+    for j = 1:sampleNum-1 
         %作差值处理
         observe4_3diff(j,i) = observe4_3(j+1,i) - observe4_3(j,i);
         upperLimit(j,i) = average(j,i)+multiple*standardDeviation(j,i);
