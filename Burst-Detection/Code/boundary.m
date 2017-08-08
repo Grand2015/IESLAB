@@ -58,7 +58,7 @@ point4Sum = Point4(:,1);
 for j =2:23
     point4Sum = point4Sum+Point4(:,j);
 end
-point4Average = point4Sum./23;5
+point4Average = point4Sum./23;
 
 %%
 for i = 1:23
