@@ -3,8 +3,8 @@ clc;
 clear all;
 
 %% 载入4月3日数据数据
-load('C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\observe4_3.mat');   
-% load('C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\observe4_3.mat');
+% load('C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\observe4_3.mat');   
+load('C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\observe4_3.mat');
 % load('C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\observe4_3.mat');
 
 %载入14个测点的拐点数据
@@ -24,11 +24,13 @@ for i = 1:monitorNum
 end
 %1MPa约等于100m水柱
 %第1次爆管数据(不同流量)
-observe4_3Smooth = abs(observe4_3Smooth)*100;
-CriticalPre = abs(CriticalPre);
+
+observe4_3Smooth = observe4_3Smooth*100;
+% CriticalPre = abs(CriticalPre);
+
 
 burstCount = 0;
-step = 5;
+step = 1;
 count = 0;
 flag = 0;
 burstBegin = 0;
@@ -37,7 +39,7 @@ indexTime = 1;
 %判断是否发生爆管
 for i = 1:monitorNum
     for j = 1:sampleNum-1
-        if(observe4_3Smooth(j,i)>CriticalPre(1,i))
+        if(observe4_3Smooth(j,i)<CriticalPre(1,i))
             %感觉判断最后是否是最后一个数据加在这里比较合适
             if(j<sampleNum-1)
                 if(flag==0)
