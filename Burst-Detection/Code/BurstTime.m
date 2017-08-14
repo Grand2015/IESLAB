@@ -6,9 +6,10 @@ clear all;
 % load('C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\observe4_3.mat');   
 load('C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\observe4_3.mat');
 % load('C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\observe4_3.mat');
+%单位MPa
 
 %载入14个测点的拐点数据
-load('CriticalPre');
+load('CriticalPre');%单位m
 %% 原始数据插值处理
 lev  = 3;
 monitorNum = 14;    %监测点个数
@@ -30,7 +31,7 @@ observe4_3Smooth = observe4_3Smooth*100;
 
 
 burstCount = 0;
-step = 1;
+step = 5;
 count = 0;
 flag = 0;
 burstBegin = 0;
@@ -47,9 +48,8 @@ for i = 1:monitorNum
                 end
                 burstEnd = 0;
                 flag = 1;
-                
                 count = count+1;
-            elseif(j==(sampleNum-1))
+            elseif(j==sampleNum-1)
                 if(0==flag)
                     count=1;
                 else
@@ -66,7 +66,7 @@ for i = 1:monitorNum
                 flag = 0;
                 count = 0;
             end
-        elseif((observe4_3Smooth(j,i)<=CriticalPre(1,i)) && (1==flag))
+        elseif((observe4_3Smooth(j,i)>=CriticalPre(1,i)) && (1==flag))
             if(count>=step)
                 burstCount = burstCount+1;
                 burstEnd = j-1;
@@ -87,12 +87,12 @@ end
 
 
 
-% t=1:1:sampleNum-1;
-% for i = 1:monitorNum
-%     figure(i);
-% 	plot(t,abs(observe4_3Smooth(t,i)),'-b',t,abs(CriticalPre(1,i)),'.r');
-% 	title(['第',num2str(i),'测点压力变化']);
-% end
+t=1:1:sampleNum-1;
+for i = 1:monitorNum
+    figure(i);
+	plot(t,observe4_3Smooth(t,i),'-b',t,CriticalPre(1,i),'.r');
+	title(['第',num2str(i),'测点压力变化']);
+end
 
 
 disp('End')
