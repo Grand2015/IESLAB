@@ -47,23 +47,25 @@ for i = 1:row
         fprintf('压力数据中仍然存在: %d 个缺省值', NaNCountCheck);
         pause( );
     end
+    
     %作差值计算
     for j = 1:monitorNum
+        preSmooth(:,j) = smooth(preSub(:,j));
         for k = 1:sampleNum-1
-            bigDiffMatrix(k,monitorNum*(i-1)+j)  = preSub(k+1,j)-preSub(k,j);
+            bigDiffMatrix(k,monitorNum*(i-1)+j)  = preSmooth(k+1,j)-preSmooth(k,j);
         end
     end       
 end
 
-[rowB,columnB] = size(bigDiffMatrix);
-for r = 1:columnB
-     preSmooth(:,r) = smooth(bigDiffMatrix(:,r));
-end
+% [rowB,columnB] = size(bigDiffMatrix);
+% for r = 1:columnB
+%      preSmooth(:,r) = smooth(bigDiffMatrix(:,r));
+% end
 
 %计算历史数据的平均值和标准差
 for i = 1:monitorNum
     for j = 1:sampleNum-1
-        temp = [preSmooth(j,i) preSmooth(j,i+monitorNum) preSmooth(j,i+2*monitorNum) preSmooth(j,i+3*monitorNum) preSmooth(j,i+4*monitorNum)];
+        temp = [bigDiffMatrix(j,i) bigDiffMatrix(j,i+monitorNum) bigDiffMatrix(j,i+2*monitorNum) bigDiffMatrix(j,i+3*monitorNum) bigDiffMatrix(j,i+4*monitorNum)];
         average(j,i) = mean(temp);
         standardDeviation(j,i) = std(temp);
     end

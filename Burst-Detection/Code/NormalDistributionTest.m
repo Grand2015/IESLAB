@@ -47,7 +47,11 @@ for i = 1:row
         fprintf('压力数据中仍然存在: %d 个缺省值', NaNCountCheck);
         pause( );
     end
-    sum = sum+preSub;
+    for k=1:monitorNum
+        preSmooth(:,k) = smooth(preSub(:,k));
+    end
+        
+    sum = sum+preSmooth;
     if i==row
         average = sum/row;
     end
@@ -61,13 +65,13 @@ for j = 1:monitorNum
 end
 
 %% 小波降噪，平滑处理
-lev  = 3;
-for i = 1:monitorNum
-    %平滑降噪
-    preSmooth(:,i) = smooth(preDiff(:,i));
-    % 小波降噪
-    preWden(:,i) = wden(preSmooth(:,i),'heursure','s','mln',lev,'sym8');
-end
+% lev  = 3;
+% for i = 1:monitorNum
+%     平滑降噪
+%     preSmooth(:,i) = smooth(preDiff(:,i));
+%     小波降噪
+%     preWden(:,i) = wden(preSmooth(:,i),'heursure','s','mln',lev,'sym8');
+% end
 
 %% 校验离散数据是否符合正态分布
 result = zeros(4,monitorNum);
@@ -79,34 +83,34 @@ result = zeros(4,monitorNum);
 alpha=0.05;
 for i = 1:monitorNum
     % 方法一：
-    temp=zscore(preSmooth(:,1));
-    [mu, sigma] = normfit(temp);
-    p = normcdf(temp, mu, sigma);
-    [H,s] = kstest(temp, [temp, p], alpha);
-%     result(5,i)=s;
-    if H == 0
-        disp('该数据源服从正态分布。')
-    else
-        disp('该数据源不服从正态分布。')
-    end
-
-    % 方法二，校验结果参考http://10kn.com/matlab-normality-test/
-    
-%     [H,P,LSTAT,CV] = lillietest(preWden(:,i),alpha);
-    [result(1,i),result(2,i),result(3,i),result(4,i)] = lillietest(preSmooth(:,i),alpha);
-    
-    figure(1);
-	subplot(4,4,i);
-	hist(preSmooth(:,i),100);
-	title(['第',num2str(i),'测点压力变化直方图']);
-	
-	figure(2);	
-	subplot(4,4,i);
-	normplot(preSmooth(:,i));
-	title(['第',num2str(i),'测点压力变化累计概率']);
+%     temp=zscore(preDiff(:,1));
+%     [mu, sigma] = normfit(temp);
+%     p = normcdf(temp, mu, sigma);
+%     [H,s] = kstest(temp, [temp, p], alpha);
+% %     result(5,i)=s;
+%     if H == 0
+%         disp('该数据源服从正态分布。')
+%     else
+%         disp('该数据源不服从正态分布。')
+%     end
+% 
+%     % 方法二，校验结果参考http://10kn.com/matlab-normality-test/
+%     
+% %     [H,P,LSTAT,CV] = lillietest(preWden(:,i),alpha);
+%     [result(1,i),result(2,i),result(3,i),result(4,i)] = lillietest(preDiff(:,i),alpha);
+%     
+%     figure(1);
+% 	subplot(4,4,i);
+% 	hist(preDiff(:,i),100);
+% 	title(['第',num2str(i),'测点压力变化直方图']);
+% 	
+% 	figure(2);	
+% 	subplot(4,4,i);
+% 	normplot(preDiff(:,i));
+% 	title(['第',num2str(i),'测点压力变化累计概率']);
     
     figure(i+2);
-	normplot(preSmooth(:,i));
+	normplot(preDiff(:,i));
 	title(['第',num2str(i),'测点压力变化累计概率']);
 end
 

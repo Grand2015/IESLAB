@@ -5,27 +5,38 @@ clear all;
 %% 载入数据
 monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
+%载入4月3日爆管实验数据
 path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\BoundaryTestData\';
+day43='leak.mat';
+Path = [path,day43];
+load(Path);
+%载入测点数据
 fileName= 'point';
 suffix='.mat';
 for i = 1:monitorNum
     Path = [path,fileName,num2str(i),suffix];%实验室路径
     load(Path);
 end
-%载入4月3日爆管实验数据
-day43='leak.mat';
-Path = [path,day43];
-load(Path);
+
+
 %%
-for i = 1:19
-    Point1(:,i) = smooth(point1(:,i),5);
+monitorNum = 14;    %监测点个数
+sampleNum  = 1440;  %采样点数，即1个/分钟
+sum = zeros(sampleNum-1,monitorNum);
+
+
+[row,column] = size(point1);
+for i = 1:column
+    Point1(:,i) = smooth(point1(:,i));
+    for j=1:sampleNum-1
+        pointDiff(j,i)=Point1(j+1,i)-Point1(j,i);
+    end
+    sum(:,1)=sum(:,1)+pointDiff(:,i);
 end
-%
-point1Sum = Point1(:,1);
-for j =2:19
-    point1Sum = point1Sum+Point1(:,j);
-end
-point1Average = point1Sum./19;%
+point1Avg=(sum(:,1)/column)*100;
+normplot(point1Avg(:,1));
+
+disp('End')
 
 %%
 for i = 1:12
