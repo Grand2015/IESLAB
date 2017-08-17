@@ -16,8 +16,9 @@ for i = 1:monitorNum
         observe4_3diff(j,i) = observe4_3(j+1,i) - observe4_3(j,i);
     end
     observe4_3Smooth(:,i) = smooth(observe4_3diff(:,i));
+    
     % 小波降噪
-    observe4_3Wden(:,i) = wden(observe4_3diff(:,i),'heursure','s','mln',lev,'sym8');
+%     observe4_3Wden(:,i) = wden(observe4_3diff(:,i),'heursure','s','mln',lev,'sym8');
 	
     %1MPa约等于100m水柱
     %第1次爆管数据(不同流量)

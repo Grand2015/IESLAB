@@ -47,10 +47,11 @@ for i = 1:row
         fprintf('压力数据中仍然存在: %d 个缺省值', NaNCountCheck);
         pause( );
     end
-    for k=1:monitorNum
-        preSmooth(:,k) = smooth(preSub(:,k));
-    end
-        
+    
+%     for k=1:monitorNum
+%         preSmooth(:,k) = smooth(preSub(:,k));
+%     end
+     preSmooth=preSub;   
     sum = sum+preSmooth;
     if i==row
         average = sum/row;
