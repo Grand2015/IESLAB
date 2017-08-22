@@ -1,8 +1,9 @@
 %Normal Distribution Test
+%产生赵丹丹方法的拐点程序
 clc;
 clear all;
 %% 载入数据
-path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实 验室hongwei_PC文件路径
+path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路径
 % path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei_PC文件路径
 % path = 'C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\';%张慧PC路径
 fileName= 'PressureData.xls';
@@ -48,10 +49,10 @@ for i = 1:row
         pause( );
     end
     
-%     for k=1:monitorNum
-%         preSmooth(:,k) = smooth(preSub(:,k));
-%     end
-     preSmooth=preSub;   
+    for k=1:monitorNum
+        preSmooth(:,k) = smooth(preSub(:,k));
+    end
+%      preSmooth=preSub;   
     sum = sum+preSmooth;
     if i==row
         average = sum/row;

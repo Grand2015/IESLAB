@@ -9,16 +9,48 @@ load('C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\observe4_3.mat');
 %单位MPa
 
 %载入14个测点的拐点数据
-load('CriticalPre');%单位m
+load('CriticalPre');%单位m，数据平滑处理得出的拐点
 %% 原始数据插值处理
-lev  = 3;
 monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
 
+preSub = observe4_3;
+NaNCount = numel(find(isnan(preSub)));%某天压力数据中缺省个数
+if NaNCount
+    for n = 1:monitorNum
+        if numel(find(isnan(preSub(:,n))))
+            [rowNaN,columnNaN] = find(isnan(preSub(:,n)));
+            count = numel(columnNaN);
+            for c = 1:count
+                valNum = rowNaN(c,1);%valNum是压力数据中每个监测点的缺省压力值的纵坐标
+                valNext = valNum+1;
+                while (isnan(preSub(valNext,n)))
+                    valNext = valNext+1;
+                end
+                a = 1/(valNext-valNum+1);
+                preSub(valNum,n) = preSub(valNum-1,n)+a*(preSub(valNext,n)-preSub(valNum-1,n));
+            end
+        end
+    end
+end
+%检验线性插值处理结果
+NaNCountCheck = numel(find(isnan(preSub)));
+if NaNCountCheck
+    fprintf('压力数据中仍然存在: %d 个缺省值', NaNCountCheck);
+    pause( );
+end
+
+
+
+
+
+lev  = 3;
+
 for i = 1:monitorNum
-    observe4_3Smooth(:,i) = smooth(observe4_3(:,i));
+    observe4_3Smooth(:,i) = smooth(preSub(:,i));
     %作差值处理
     for j = 1:sampleNum-1
+%         observe4_3diff(j,i) = preSub(j+1,i) - preSub(j,i);
         observe4_3diff(j,i) = observe4_3Smooth(j+1,i) - observe4_3Smooth(j,i);
     end
     
@@ -33,12 +65,16 @@ observe4_3diff = observe4_3diff*100;
 
 %增大采样间隔
 % 从第一项开始，等间隔n对x采样，得到的序列。为y。
-n=6;
+n=1;
 pre4_3Sample = downsample(observe4_3diff, n);
-sampleNum=sampleNum/n;
+if(n==1)
+    sampleNum=sampleNum-1;
+else
+    sampleNum=sampleNum/n;
+end
 
 burstCount = 0;
-step = 1;
+step = 5;%连续的几个点
 count = 0;
 flag = 0;
 burstBegin = 0;
@@ -73,7 +109,7 @@ for i = 1:monitorNum
                 flag = 0;
                 count = 0;
             end
-        elseif((pre4_3Sample(j,i)>=CriticalPre(1,i)) && (1==flag))
+        elseif((pre4_3Sample(j,i)>CriticalPre(1,i)) && (1==flag))
             if(count>=step)
                 burstCount = burstCount+1;
                 burstEnd = j-1;
