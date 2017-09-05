@@ -63,7 +63,7 @@ sheetName = [
 ];
 Path = [path,fileName];%实验室路径
 
-monitor    = 1;     %监测点编号循环基数
+monitor    = 0;     %监测点编号循环基数
 monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
 [row,column] = size(sheetName);
@@ -73,7 +73,7 @@ BurstTestData = xlsread(Path,sheetNameBurst,'C3:P1442');
 %获取爆管实验前后压力数据
 for i = 1:row
     preSub = xlsread(Path,sheetName(i,:),'C3:P1442');
-	
+	monitor = monitor+1;
 	monitor1(:,monitor) = preSub(:,1);
 	monitor2(:,monitor) = preSub(:,2);
 	monitor3(:,monitor) = preSub(:,3);
@@ -88,19 +88,34 @@ for i = 1:row
 	monitor12(:,monitor) = preSub(:,12);
 	monitor13(:,monitor) = preSub(:,13);
 	monitor14(:,monitor) = preSub(:,14);
-	monitor = monitor+1;
+	
 end
 
 %% 对测点大量的缺省数据进行剔除
 %主要是测点1,2,6,7,11
-for i = 1:row
-	NaNCount = numel(find(isnan(monitor1(:,i))));
-	count(1,i) = NaNCount;%用于判断丢失数据的最小值
-	
-	if(NaNCount >= 500)
-		monitor1(:,i) = [];
-	end
+%monitor1
+for i = 19:1:21
+	monitor1(:,i) = [];
 end
+
+%monitor2
+for i = 5:1:12
+	monitor2(:,i) = [];
+end
+
+%monitor6
+for i = 6:1:12
+	monitor6(:,i) = [];
+end
+
+%monitor7
+for i = 6:1:12
+	monitor7(:,i) = [];
+end
+
+%monitor11
+monitor11(:,21) = [];
+
 %直接通过观察数据直接将部分列设为空值
 
 %% 插值处理 
