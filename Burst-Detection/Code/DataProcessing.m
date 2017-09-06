@@ -33,8 +33,8 @@
 clc;
 clear all;
 %% 载入数据
-path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路径
-% path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei_PC文件路径
+% path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路径
+path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei_PC文件路径
 % path = 'C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\';%张慧PC路径
 fileName= 'PressureDataAll.xls';
 sheetNameBurst='20150403';
@@ -94,27 +94,24 @@ end
 %% 对测点大量的缺省数据进行剔除
 %主要是测点1,2,6,7,11
 %monitor1
-for i = 19:1:21
+for i = 21:-1:1
 	monitor1(:,i) = [];
 end
 
 %monitor2
-for i = 5:1:12
+for i = 12:-1:3
 	monitor2(:,i) = [];
 end
 
-%monitor6
-for i = 6:1:12
+%monitor6/7
+for i = 12:-1:5
 	monitor6(:,i) = [];
-end
-
-%monitor7
-for i = 6:1:12
-	monitor7(:,i) = [];
+    monitor7(:,i) = [];
 end
 
 %monitor11
 monitor11(:,21) = [];
+monitor11(:,20) = [];
 
 %直接通过观察数据直接将部分列设为空值
 
