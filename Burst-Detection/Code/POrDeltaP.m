@@ -6,9 +6,12 @@ function [average,standard,Output] = POrDeltaP(Input,flag)
 
 [row,column] = size(Input);%row矩阵的行，column矩阵的列
 if flag==1
-	for i=1:column
-		for j=1:row-1
-			Input(j,i) = Input(j+1,i)-Input(j,i);
-		end
-	end
+    for i=1:column
+        for j=1:row-1
+            InputDelta(j,i) = Input(j+1,i)-Input(j,i);
+        end
+    end
+    Output = InputDelta;
+else
+    Output = Input;
 end
