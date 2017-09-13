@@ -48,6 +48,7 @@ monitor13 = SmoothOrWden(monitor13,flag);
 monitor14 = SmoothOrWden(monitor14,flag);
 
 BurstTestData = SmoothOrWden(BurstTestData,flag);
+%% 压力值差值或者压力值
 
 %% 压力值差值或者压力值
 % flag=1表示输出δP的结果，Output=δInput；flag=0表示输出P的结果，Output=Input
