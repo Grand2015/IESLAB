@@ -95,6 +95,15 @@ standard = [standard1 standard2 standard3 standard4 standard5 standard6 standard
 % 1,HJM的P方法
 % 2,δP方法
 % 3,ZDD拐点方法
+% 当方法为1,2的时候，input1表示average，input2表示standard
+% 当方法为3的时候，input1表示拐点数据，input设为0
+% multiple:Delta的倍数
+
+% 计算拐点数据
+[row,column] = size(averageDel);
+for i = 1:column
+	normplot(averageDel(:,i));
+end
 
 
 %% 代码输出
