@@ -10,7 +10,7 @@ path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\BoundaryTestData\';
 day43='leak.mat';
 Path = [path,day43];
 load(Path);
-%载入测点数据
+%载入测点数据 
 fileName= 'point';
 suffix='.mat';
 for i = 1:monitorNum

@@ -13,8 +13,8 @@ clear all;
 monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
 %载入4月3日爆管实验数据
-% path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\AllData\';%实验室数据路径
-path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\AllData\';%个人电脑路径
+path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\AllData\';%实验室数据路径
+% path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\AllData\';%个人电脑路径
 day43='BurstTestData.mat';
 Path = [path,day43];
 load(Path);
@@ -31,7 +31,7 @@ end
 % case2：平滑滤波
 % 用flag做标记，flag=1表示case1，flag=0表示case2
 
-flag = 1;
+flag = 0;
 monitor1 = SmoothOrWden(monitor1,flag);
 monitor2 = SmoothOrWden(monitor2,flag);
 monitor3 = SmoothOrWden(monitor3,flag);
@@ -100,9 +100,12 @@ standard = [standard1 standard2 standard3 standard4 standard5 standard6 standard
 % multiple:Delta的倍数
 
 % 计算拐点数据
+averageDel = averageDel*100;
 [row,column] = size(averageDel);
 for i = 1:column
+    figure(i);
 	normplot(averageDel(:,i));
+	title(['第',num2str(i),'测点压力变化累计概率']);
 end
 
 
