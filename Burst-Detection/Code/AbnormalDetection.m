@@ -45,7 +45,10 @@ end
 
 %增大采样间隔
 % 从第一项开始，等间隔n对x采样，得到的序列。为y。
-inputSample = downsample(input, interval);
+for i=1:column
+    inputSample(:,i) = downsample(input(:,i), interval);
+end
+%inputSample = downsample(input, interval);
 if(interval==1)
     sampleNum=sampleNum-1;
 else

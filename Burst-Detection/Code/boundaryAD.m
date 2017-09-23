@@ -13,8 +13,9 @@ clear all;
 monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
 %载入4月3日爆管实验数据
-path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\AllData\';%实验室数据路径
+% path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\AllData\';%实验室数据路径
 % path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\AllData\';%个人电脑路径
+path = 'C:\IESLAB\SCADA-Data\AllData\'; %东华图书馆PC路径
 day43='BurstTestData.mat';
 Path = [path,day43];
 load(Path);
@@ -99,14 +100,9 @@ standard = [standard1 standard2 standard3 standard4 standard5 standard6 standard
 % 当方法为3的时候，input1表示拐点数据，input设为0
 % multiple:Delta的倍数
 
-% 计算拐点数据
+%% 计算拐点数据
+% 加入采样参数，对数据进行抽样分析
 averageDel = averageDel*100;
-[row,column] = size(averageDel);
-for i = 1:column
-    figure(i);
-	normplot(averageDel(:,i));
-	title(['第',num2str(i),'测点压力变化累计概率']);
-end
 
 
 %% 代码输出
