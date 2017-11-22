@@ -112,7 +112,14 @@ for i = 1:monitorNum
 % 	title(['第',num2str(i),'测点压力变化累计概率']);
     
     figure(i+2);
-	normplot(preDiff(:,i));
-	title(['第',num2str(i),'测点压力变化累计概率']);
+	normplot(preDiff(:,i))
+% 	title(['第',num2str(i),'测点压力变化累计概率']);
+    
+%     plot(t,BurstTestData(:,2),)
+    ylabel('Probabillity')
+    xlabel('Delta Pressure')
+    set(gca,'linewidth',2);
+    set(gca,'FontSize',25);
+    
 end
 

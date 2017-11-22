@@ -33,8 +33,8 @@
 clc;
 clear all;
 %% 载入数据
-% path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路径
-path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei_PC文件路径
+path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\';%实验室hongwei_PC文件路径
+% path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\';%hongwei_PC文件路径
 % path = 'C:\Users\zh\Desktop\hongweili\IESLAB\SCADA-Data\';%张慧PC路径
 fileName= 'PressureDataAll.xls';
 sheetNameBurst='20150403';
@@ -94,7 +94,7 @@ end
 %% 对测点大量的缺省数据进行剔除
 %主要是测点1,2,6,7,11
 %monitor1
-for i = 21:-1:1
+for i = 21:-1:18
 	monitor1(:,i) = [];
 end
 
@@ -103,9 +103,13 @@ for i = 12:-1:3
 	monitor2(:,i) = [];
 end
 
-%monitor6/7
-for i = 12:-1:5
+%monitor6
+for i = 12:-1:1
 	monitor6(:,i) = [];
+end
+
+%monitor7
+for i = 12:-1:5
     monitor7(:,i) = [];
 end
 
@@ -117,48 +121,64 @@ monitor11(:,20) = [];
 
 %% 插值处理 
 %monitor1
+flag=0;
 monitor1 = LinearInterpolation(monitor1);
+monitor1 = SmoothOrWden(monitor1,flag);
 save monitor1 monitor1
 
 monitor2 = LinearInterpolation(monitor2);
+monitor2 = SmoothOrWden(monitor2,flag);
 save monitor2 monitor2
 
 monitor3 = LinearInterpolation(monitor3);
+monitor3 = SmoothOrWden(monitor3,flag);
 save monitor3 monitor3
 
 monitor4 = LinearInterpolation(monitor4);
+monitor4 = SmoothOrWden(monitor4,flag);
 save monitor4 monitor4
 
 monitor5 = LinearInterpolation(monitor5);
+monitor5 = SmoothOrWden(monitor5,flag);
 save monitor5 monitor5
 
 monitor6 = LinearInterpolation(monitor6);
+monitor6 = SmoothOrWden(monitor6,flag);
 save monitor6 monitor6
 
 monitor7 = LinearInterpolation(monitor7);
+monitor7 = SmoothOrWden(monitor7,flag);
 save monitor7 monitor7
 
 monitor8 = LinearInterpolation(monitor8);
+monitor8 = SmoothOrWden(monitor8,flag);
 save monitor8 monitor8
 
 monitor9 = LinearInterpolation(monitor9);
+monitor9 = SmoothOrWden(monitor9,flag);
 save monitor9 monitor9
 
 monitor10 = LinearInterpolation(monitor10);
+monitor10 = SmoothOrWden(monitor10,flag);
 save monitor10 monitor10
 
 monitor11 = LinearInterpolation(monitor11);
+monitor11 = SmoothOrWden(monitor11,flag);
 save monitor11 monitor11
 
 monitor12 = LinearInterpolation(monitor12);
+monitor12 = SmoothOrWden(monitor12,flag);
 save monitor12 monitor12
 
 monitor13 = LinearInterpolation(monitor13);
+monitor13 = SmoothOrWden(monitor13,flag);
 save monitor13 monitor13
 
 monitor14 = LinearInterpolation(monitor14);
+monitor14 = SmoothOrWden(monitor14,flag);
 save monitor14 monitor14
 
 %爆管实验数据进行差值处理
 BurstTestData = LinearInterpolation(BurstTestData);
+BurstTestData = SmoothOrWden(BurstTestData,flag);
 save BurstTestData BurstTestData

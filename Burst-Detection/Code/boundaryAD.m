@@ -13,9 +13,9 @@ clear all;
 monitorNum = 14;    %监测点个数
 sampleNum  = 1440;  %采样点数，即1个/分钟
 %载入4月3日爆管实验数据
-% path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\AllData\';%实验室数据路径
+path = 'C:\Users\hongwei_lab\Desktop\IESLAB\SCADA-Data\AllData\';%实验室数据路径
 % path = 'C:\Users\hongwei\Desktop\IESLAB\SCADA-Data\AllData\';%个人电脑路径
-path = 'C:\IESLAB\SCADA-Data\AllData\'; %东华图书馆PC路径
+% path = 'C:\IESLAB\SCADA-Data\AllData\'; %东华图书馆PC路径
 day43='BurstTestData.mat';
 Path = [path,day43];
 load(Path);
@@ -32,7 +32,7 @@ end
 % case2：平滑滤波
 % 用flag做标记，flag=1表示case1，flag=0表示case2
 
-flag = 0;
+flag = 1;
 monitor1 = SmoothOrWden(monitor1,flag);
 monitor2 = SmoothOrWden(monitor2,flag);
 monitor3 = SmoothOrWden(monitor3,flag);
@@ -48,8 +48,8 @@ monitor12 = SmoothOrWden(monitor12,flag);
 monitor13 = SmoothOrWden(monitor13,flag);
 monitor14 = SmoothOrWden(monitor14,flag);
 
-BurstTestData = SmoothOrWden(BurstTestData,flag);
-
+BurstTestDataSmooth = SmoothOrWden(BurstTestData,flag);
+save BurstTestDataSmooth BurstTestDataSmooth;
 %% 压力值差值或者压力值
 % flag=1表示输出δP的结果，Output=δInput；flag=0表示输出P的结果，Output=Input
 % 计算delta要放在前面，因为deltaP比P少了一行数据，防止数据不能全部覆盖
@@ -72,6 +72,8 @@ flag = 1;
 
 averageDel = [average1 average2 average3 average4 average5 average6 average7 average8 average9 average10 average11 average12 average13 average14];
 standardDel = [standard1 standard2 standard3 standard4 standard5 standard6 standard7 standard8 standard9 standard10 standard11 standard12 standard13 standard14];
+save averageDel averageDel;
+save standardDel standardDel;
 
 flag = 0;
 [average1,standard1,monitor1] = POrDeltaP(monitor1,flag);
@@ -91,7 +93,8 @@ flag = 0;
 
 average = [average1 average2 average3 average4 average5 average6 average7 average8 average9 average10 average11 average12 average13 average14];
 standard = [standard1 standard2 standard3 standard4 standard5 standard6 standard7 standard8 standard9 standard10 standard11 standard12 standard13 standard14];
-
+save average average;
+save standard standard;
 %% 异常事件侦测
 % 1,HJM的P方法
 % 2,δP方法
