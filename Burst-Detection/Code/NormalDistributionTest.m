@@ -76,50 +76,58 @@ end
 % end
 
 %% 校验离散数据是否符合正态分布
-result = zeros(4,monitorNum);
+% result = zeros(4,monitorNum);
 % header = ['H' 'P' 'I' 'CV']; 
 % 
 % for m = 1:4
 % 	result(m,1)=header(i,:);
 % end
-alpha=0.05;
-for i = 1:monitorNum
-    % 方法一：
-%     temp=zscore(preDiff(:,1));
-%     [mu, sigma] = normfit(temp);
-%     p = normcdf(temp, mu, sigma);
-%     [H,s] = kstest(temp, [temp, p], alpha);
-% %     result(5,i)=s;
-%     if H == 0
-%         disp('该数据源服从正态分布。')
-%     else
-%         disp('该数据源不服从正态分布。')
-%     end
-% 
-%     % 方法二，校验结果参考http://10kn.com/matlab-normality-test/
+% alpha=0.05;
+% for i = 1:monitorNum
+%     % 方法一：
+% %     temp=zscore(preDiff(:,1));
+% %     [mu, sigma] = normfit(temp);
+% %     p = normcdf(temp, mu, sigma);
+% %     [H,s] = kstest(temp, [temp, p], alpha);
+% % %     result(5,i)=s;
+% %     if H == 0
+% %         disp('该数据源服从正态分布。')
+% %     else
+% %         disp('该数据源不服从正态分布。')
+% %     end
+% % 
+% %     % 方法二，校验结果参考http://10kn.com/matlab-normality-test/
+% %     
+% % %     [H,P,LSTAT,CV] = lillietest(preWden(:,i),alpha);
+% %     [result(1,i),result(2,i),result(3,i),result(4,i)] = lillietest(preDiff(:,i),alpha);
+% %     
+% %     figure(1);
+% % 	subplot(4,4,i);
+% % 	hist(preDiff(:,i),100);
+% % 	title(['第',num2str(i),'测点压力变化直方图']);
+% % 	
+% % 	figure(2);	
+% % 	subplot(4,4,i);
+% % 	normplot(preDiff(:,i));
+% % 	title(['第',num2str(i),'测点压力变化累计概率']);
 %     
-% %     [H,P,LSTAT,CV] = lillietest(preWden(:,i),alpha);
-%     [result(1,i),result(2,i),result(3,i),result(4,i)] = lillietest(preDiff(:,i),alpha);
+%     figure(2);
+% 	normplot(preDiff(:,i))
+% 	title(['第',num2str(i),'测点压力变化累计概率']);
 %     
-%     figure(1);
-% 	subplot(4,4,i);
-% 	hist(preDiff(:,i),100);
-% 	title(['第',num2str(i),'测点压力变化直方图']);
-% 	
-% 	figure(2);	
-% 	subplot(4,4,i);
-% 	normplot(preDiff(:,i));
-% 	title(['第',num2str(i),'测点压力变化累计概率']);
-    
-    figure(i+2);
-	normplot(preDiff(:,i))
-% 	title(['第',num2str(i),'测点压力变化累计概率']);
+% %     plot(t,BurstTestData(:,2),)
+%     ylabel('概率')
+%     xlabel('压力差')
+%     set(gca,'linewidth',2);
+%     set(gca,'FontSize',25);
+%     
+% end
+    figure;
+	normplot(preDiff(:,7))
+	title('7号测点压力变化累计概率');
     
 %     plot(t,BurstTestData(:,2),)
-    ylabel('Probabillity')
-    xlabel('Delta Pressure')
+    ylabel('概率')
+    xlabel('压力差')
     set(gca,'linewidth',2);
     set(gca,'FontSize',25);
-    
-end
-

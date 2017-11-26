@@ -32,7 +32,7 @@ end
 % case2：平滑滤波
 % 用flag做标记，flag=1表示case1，flag=0表示case2
 
-flag = 1;
+flag = 0;
 monitor1 = SmoothOrWden(monitor1,flag);
 monitor2 = SmoothOrWden(monitor2,flag);
 monitor3 = SmoothOrWden(monitor3,flag);
@@ -74,6 +74,7 @@ averageDel = [average1 average2 average3 average4 average5 average6 average7 ave
 standardDel = [standard1 standard2 standard3 standard4 standard5 standard6 standard7 standard8 standard9 standard10 standard11 standard12 standard13 standard14];
 save averageDel averageDel;
 save standardDel standardDel;
+save BurstTestDataDel BurstTestDataDel;
 
 flag = 0;
 [average1,standard1,monitor1] = POrDeltaP(monitor1,flag);

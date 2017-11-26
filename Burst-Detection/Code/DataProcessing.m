@@ -22,7 +22,7 @@
 % 20150405 数据完整
 % 20150406 数据全部丢失
 % 20150408 数据完整
-% 20150409 数据完整
+% 20150409 数据完整（）
 % 20150410 数据完整
 % 20150411 测点1数据大量缺失
 % 20150412 测点1数据大量缺失
@@ -113,6 +113,12 @@ for i = 12:-1:5
     monitor7(:,i) = [];
 end
 
+%monitor9
+monitor9(:,7) = [];
+monitor9(:,6) = [];
+monitor9(:,4) = [];
+monitor9(:,3) = [];
+
 %monitor11
 monitor11(:,21) = [];
 monitor11(:,20) = [];
@@ -123,62 +129,64 @@ monitor11(:,20) = [];
 %monitor1
 flag=0;
 monitor1 = LinearInterpolation(monitor1);
-monitor1 = SmoothOrWden(monitor1,flag);
+% monitor1 = SmoothOrWden(monitor1,flag);
 save monitor1 monitor1
 
 monitor2 = LinearInterpolation(monitor2);
-monitor2 = SmoothOrWden(monitor2,flag);
+% monitor2 = SmoothOrWden(monitor2,flag);
 save monitor2 monitor2
 
 monitor3 = LinearInterpolation(monitor3);
-monitor3 = SmoothOrWden(monitor3,flag);
+% monitor3 = SmoothOrWden(monitor3,flag);
 save monitor3 monitor3
 
 monitor4 = LinearInterpolation(monitor4);
-monitor4 = SmoothOrWden(monitor4,flag);
+% monitor4 = SmoothOrWden(monitor4,flag);
 save monitor4 monitor4
 
 monitor5 = LinearInterpolation(monitor5);
-monitor5 = SmoothOrWden(monitor5,flag);
+% monitor5 = SmoothOrWden(monitor5,flag);
 save monitor5 monitor5
 
 monitor6 = LinearInterpolation(monitor6);
-monitor6 = SmoothOrWden(monitor6,flag);
+% monitor6 = SmoothOrWden(monitor6,flag);
 save monitor6 monitor6
 
 monitor7 = LinearInterpolation(monitor7);
-monitor7 = SmoothOrWden(monitor7,flag);
+% monitor7 = SmoothOrWden(monitor7,flag);
 save monitor7 monitor7
 
 monitor8 = LinearInterpolation(monitor8);
-monitor8 = SmoothOrWden(monitor8,flag);
+% monitor8 = SmoothOrWden(monitor8,flag);
 save monitor8 monitor8
 
 monitor9 = LinearInterpolation(monitor9);
-monitor9 = SmoothOrWden(monitor9,flag);
+% monitor9 = SmoothOrWden(monitor9,flag);
 save monitor9 monitor9
 
 monitor10 = LinearInterpolation(monitor10);
-monitor10 = SmoothOrWden(monitor10,flag);
+% monitor10 = SmoothOrWden(monitor10,flag);
 save monitor10 monitor10
 
 monitor11 = LinearInterpolation(monitor11);
-monitor11 = SmoothOrWden(monitor11,flag);
+% monitor11 = SmoothOrWden(monitor11,flag);
 save monitor11 monitor11
 
 monitor12 = LinearInterpolation(monitor12);
-monitor12 = SmoothOrWden(monitor12,flag);
+% monitor12 = SmoothOrWden(monitor12,flag);
 save monitor12 monitor12
 
 monitor13 = LinearInterpolation(monitor13);
-monitor13 = SmoothOrWden(monitor13,flag);
+% monitor13 = SmoothOrWden(monitor13,flag);
 save monitor13 monitor13
 
 monitor14 = LinearInterpolation(monitor14);
-monitor14 = SmoothOrWden(monitor14,flag);
+% monitor14 = SmoothOrWden(monitor14,flag);
 save monitor14 monitor14
 
 %爆管实验数据进行差值处理
 BurstTestData = LinearInterpolation(BurstTestData);
-BurstTestData = SmoothOrWden(BurstTestData,flag);
+% BurstTestData = SmoothOrWden(BurstTestData,flag);
 save BurstTestData BurstTestData
+
+SystemInfor( );

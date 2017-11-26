@@ -8,19 +8,58 @@ clear all;
 load('BurstTestDataSmooth.mat');%数据均已做平滑处理
 load('average.mat');
 load('standard.mat');
+load('BurstTestDataDel.mat');%数据均已做平滑处理
+load('averageDel.mat');
+load('standardDel.mat');
 
+% BurstTestDataSmooth = BurstTestDataDel;
+% average = averageDel;
+% standard = standardDel;
+
+figure;
+plot(average(:,2),'LineWidth',2);
+% hold on;
+% plot(average(:,9)-8*standard(:,9),'--','LineWidth',2);
+% hold on;
+% figure
+% plot(average(:,6)-0.28,'LineWidth',2);
+xlabel('采样时间/min')
+ylabel('压力/MPa')
+set(gca,'linewidth',2);
+set(gca,'FontSize',25);
+% title('2号监测点压力曲线');
+set(gca,'XTick',0:300:1500);
+grid on;
+% figure
+% plot(average(:,7)-0.28,'LineWidth',2);
+% figure
+% plot(standard(:,6),'LineWidth',2);
+% xlabel('采样时间/min')
+% ylabel('标准差')
+% set(gca,'linewidth',2);
+% set(gca,'FontSize',25);
+% title('6号监测点压力差标准差曲线');
+% for i=1:14
 % figure;
-% plot(BurstTestDataSmooth(:,1));
+% plot(BurstTestDataSmooth(:,i),'LineWidth',2);
 % hold on;
-% plot(average(:,1)-4*standard(:,1));
+% plot(average(:,i)-4*standard(:,i),'--','LineWidth',2);
 % hold on;
+% xlabel('采样时间/min')
+% ylabel('压力/MPa')
+% set(gca,'linewidth',2);
+% set(gca,'FontSize',25);
+% legend('实测曲线','4Δ下限');
+% title([num2str(i),'号监测点压力曲线']);
+% % box off;
+% end
 % plot(average(:,1));
 %% 数据处理
 monitorNum = 14;    %监测点个数
-sampleNum  = 1440;  %采样点数，即1个/分钟
+sampleNum  = 1440-1;  %采样点数，即1个/分钟
 
-multiple = 1;%Delta的倍数
-step = 8;%连续出现超过step个数据，判断为爆管事件
+multiple = 4;%Delta的倍数
+step = 2;%连续出现超过step个数据，判断为爆管事件
 burstCount = 0;
 count = 0;
 flag = 0;
