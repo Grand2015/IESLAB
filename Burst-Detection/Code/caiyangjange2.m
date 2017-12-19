@@ -32,7 +32,7 @@ for i = 1:monitorNum
     load(Path);
 end
 %% 改变采样间隔
-sample = 3;
+sample = 2;
 
     monitor1d = downsample(monitor1, sample);
     monitor2d = downsample(monitor2, sample);

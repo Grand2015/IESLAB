@@ -3,13 +3,13 @@ clear all;
 %% 
 load('BurstTestDataSmooth.mat');
 load('average.mat');
-load('X.mat');
-load('Y.mat');
-load('shuju.mat')
-shuju(4,4)=19851.32;
-for i=1:8
-    result(i,1)=sqrt((shuju(i,1)-shuju(i,3))^2+(shuju(i,2)-shuju(i,4))^2);
-end
+% load('X.mat');
+% load('Y.mat');
+% load('shuju.mat')
+% shuju(4,4)=19851.32;
+% for i=1:8
+%     result(i,1)=sqrt((shuju(i,1)-shuju(i,3))^2+(shuju(i,2)-shuju(i,4))^2);
+% end
 
 
 

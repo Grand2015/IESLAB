@@ -31,7 +31,7 @@ average15 = SmoothOrWden(average15,flag);
 figure;
 subplot(2,3,1);
 plot(average(:,4),'LineWidth',2);
-xlabel('采样频率：1min/次')
+xlabel('采样间隔：1分钟')
 ylabel('压力/MPa')
 set(gca,'linewidth',2);
 set(gca,'FontSize',15);
@@ -41,7 +41,7 @@ set(gca,'FontSize',15);
 % figure;
 subplot(2,3,2);
 plot(average2,'LineWidth',2);
-xlabel('采样频率：2min/次')
+xlabel('采样间隔：2分钟')
 % ylabel('压力/MPa')
 set(gca,'linewidth',2);
 set(gca,'FontSize',15);
@@ -49,28 +49,28 @@ set(gca,'FontSize',15);
 % figure;
 subplot(2,3,3);
 plot(average3,'LineWidth',2);
-xlabel('采样频率：3min/次')
+xlabel('采样间隔：3分钟')
 % ylabel('压力/MPa')
 set(gca,'linewidth',2);
 set(gca,'FontSize',15);
 % figure;
 subplot(2,3,4);
 plot(average5,'LineWidth',2);
-xlabel('采样频率：5min/次')
+xlabel('采样间隔：5分钟')
 ylabel('压力/MPa')
 set(gca,'linewidth',2);
 set(gca,'FontSize',15);
 % figure;
 subplot(2,3,5);
 plot(average10,'LineWidth',2);
-xlabel('采样频率：10min/次')
+xlabel('采样间隔：10分钟')
 % ylabel('压力/MPa')
 set(gca,'linewidth',2);
 set(gca,'FontSize',15);
 % figure;
 subplot(2,3,6);
 plot(average15,'LineWidth',2);
-xlabel('采样频率：15min/次')
+xlabel('采样间隔：15分钟')
 % ylabel('压力/MPa')
 set(gca,'linewidth',2);
 set(gca,'FontSize',15);

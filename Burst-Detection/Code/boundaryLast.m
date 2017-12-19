@@ -8,6 +8,20 @@ clear all;
 load('BurstTestDataSmoothd.mat');%数据均已做平滑处理
 load('averaged.mat');
 load('standardd.mat');
+figure;
+plot(averaged(:,4),'LineWidth',2);
+% plot(BurstTestDataSmoothd(:,10),'LineWidth',2);
+xlabel('采样间隔2分钟')
+ylabel('压力/MPa')
+set(gca,'linewidth',2);
+set(gca,'FontSize',10);
+% title('100立方米压力曲线');
+
+% for i=1:14
+% plot(averaged(:,i));
+% hold on;
+% end
+
 % load('BurstTestDataDel.mat');%数据均已做平滑处理
 % load('averageDel.mat');
 % load('standardDel.mat');
@@ -21,40 +35,40 @@ load('standardd.mat');
 % % hold on;
 % % plot(average(:,9)-8*standard(:,9),'--','LineWidth',2);
 % % hold on;
-for i=19:22
+for i=59:61
     BurstTestDataSmoothd(i,14)=nan;
 end
-BurstTestDataSmoothd(20,14)=0.2653;
+BurstTestDataSmoothd(60,14)=0.2653;
 BurstTestDataSmoothd = LinearInterpolation(BurstTestDataSmoothd);
 
-for i=21:35
+for i=299:301
     BurstTestDataSmoothd(i,14)=nan;
 end
-BurstTestDataSmoothd(25,14)=0.2823;
-BurstTestDataSmoothd(29,14)=0.28;
-BurstTestDataSmoothd(33,14)=0.2790;
+% BurstTestDataSmoothd(25,14)=0.2823;
+% BurstTestDataSmoothd(29,14)=0.28;
+BurstTestDataSmoothd(300,14)=0.309;
 BurstTestDataSmoothd = LinearInterpolation(BurstTestDataSmoothd);
-
-for i=185:190
+% 
+% for i=185:190
+%     BurstTestDataSmoothd(i,14)=nan;
+% end
+% BurstTestDataSmoothd(187,14)=0.316;
+% BurstTestDataSmoothd = LinearInterpolation(BurstTestDataSmoothd);
+% 
+% for i=199:201
+%     BurstTestDataSmoothd(i,14)=nan;
+% end
+% BurstTestDataSmoothd(200,14)=0.306;
+% BurstTestDataSmoothd = LinearInterpolation(BurstTestDataSmoothd);
+% 
+for i=508:511
     BurstTestDataSmoothd(i,14)=nan;
 end
-BurstTestDataSmoothd(187,14)=0.316;
-BurstTestDataSmoothd = LinearInterpolation(BurstTestDataSmoothd);
-
-for i=199:201
-    BurstTestDataSmoothd(i,14)=nan;
-end
-BurstTestDataSmoothd(200,14)=0.306;
-BurstTestDataSmoothd = LinearInterpolation(BurstTestDataSmoothd);
-
-for i=338:341
-    BurstTestDataSmoothd(i,14)=nan;
-end
-BurstTestDataSmoothd(340,14)=0.2965;
+BurstTestDataSmoothd(510,14)=0.3065;
 BurstTestDataSmoothd = LinearInterpolation(BurstTestDataSmoothd);
 
 
-    figure;
+figure;
 plot(BurstTestDataSmoothd(:,14),'LineWidth',2);
 % hold on;
 % plot(average(:,i)-4*standard(:,i),'--','LineWidth',2);
@@ -69,28 +83,28 @@ set(gca,'FontSize',25);
 figure
 subplot(2,2,1)
 plot(BurstTestDataSmoothd(:,10),'LineWidth',2);
-xlabel('采样频率3min/次')
+xlabel('采样间隔2分钟')
 ylabel('压力/MPa')
 set(gca,'linewidth',2);
 set(gca,'FontSize',10);
 title('100立方米压力曲线');
 subplot(2,2,2)
 plot(BurstTestDataSmoothd(:,11),'LineWidth',2);
-xlabel('采样频率3min/次')
+xlabel('采样间隔2分钟')
 ylabel('压力/MPa')
 set(gca,'linewidth',2);
 set(gca,'FontSize',10);
 title('200立方米压力曲线');
 subplot(2,2,3)
 plot(BurstTestDataSmoothd(:,14),'LineWidth',2);
-xlabel('采样频率3min/次')
+xlabel('采样间隔2分钟')
 ylabel('压力/MPa')
 set(gca,'linewidth',2);
 set(gca,'FontSize',10);
 title('300立方米压力曲线');
 subplot(2,2,4)
 plot(BurstTestDataSmoothd(:,8),'LineWidth',2);
-xlabel('采样频率3min/次')
+xlabel('采样间隔2分钟')
 ylabel('压力/MPa')
 set(gca,'linewidth',2);
 set(gca,'FontSize',10);
